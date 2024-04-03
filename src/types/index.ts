@@ -8,7 +8,7 @@ export type IUpdateUser = {
   userId: string;
   name: string;
   bio: string;
-  imageId: string;
+  imageid: string;
   imageUrl: URL | string;
   file: File[];
 };
