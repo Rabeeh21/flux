@@ -493,7 +493,7 @@ export async function updateUser(user: IUpdateUser) {
   try {
     let image = {
       imageUrl: user.imageUrl,
-      imageId: user.imageId,
+      imageid: user.imageid,
     };
 
     if (hasFileToUpdate) {
@@ -508,7 +508,7 @@ export async function updateUser(user: IUpdateUser) {
         throw Error;
       }
 
-      image = { ...image, imageUrl: fileUrl, imageId: uploadedFile.$id };
+      image = { ...image, imageUrl: fileUrl, imageid: uploadedFile.$id };
     }
 
     //  Update user
@@ -520,7 +520,7 @@ export async function updateUser(user: IUpdateUser) {
         name: user.name,
         bio: user.bio,
         imageUrl: image.imageUrl,
-        imageId: image.imageId,
+        imageid: image.imageid,
       }
     );
 
@@ -528,15 +528,15 @@ export async function updateUser(user: IUpdateUser) {
     if (!updatedUser) {
       // Delete new file that has been recently uploaded
       if (hasFileToUpdate) {
-        await deleteFile(image.imageId);
+        await deleteFile(image.imageid);
       }
       // If no new file uploaded, just throw error
       throw Error;
     }
 
     // Safely delete old file after successful update
-    if (user.imageId && hasFileToUpdate) {
-      await deleteFile(user.imageId);
+    if (user.imageid && hasFileToUpdate) {
+      await deleteFile(user.imageid);
     }
 
     return updatedUser;
